@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Search Results - Cat Ads{% endblock %}
+
+{% block content %}
+  <h1>Результаты поиска по запросу "{{ query }}"</h1>
+  {% if results %}
+    <div class="row">
+      {% for cat in results %}
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <img src="{{ cat.image.url }}" class="card-img-top" alt="{{ cat.breed.name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ cat.breed.name }}</h5>
+              <p class="card-text">Возраст: {{ cat.age }}, Цена: ₽{{ cat.price }}</p>
+              <a href="{% url 'cat_detail' cat.pk %}" class="btn btn-primary">Узнать подробнее</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>По данному запросу ничего не найдено</p>
+  {% endif %}
+{% endblock %}

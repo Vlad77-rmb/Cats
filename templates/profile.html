@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+    <h1>Профиль пользователя</h1>
+
+    {% if user.is_authenticated %}
+        <p>Имя пользователя: {{ user.username }}</p>
+        <p>Адрес электронной почты: {{ user.email }}</p>
+        <p>Имя: {{ user.first_name }}</p>
+        <p>Фамилия: {{ user.last_name }}</p>
+
+        <p>Номер телефона: {{ profile.phone_number }}</p>  <!-- Добавили номер телефона -->
+        <p>Местоположение: {{ profile.location }}</p>  <!-- Добавили местоположение -->
+        <p>О себе: {{ profile.about }}</p>  <!-- Добавили информацию о себе -->
+
+
+        <a href="{% url 'edit_profile' %}">Редактировать профиль</a> <!-- Добавили ссылку на редактирование профиля -->
+        <a href="{% url 'home' %}">Вернуться на главную</a>  <!-- Ссылка на главную -->
+
+    {% else %}
+        <p>Вы не вошли в систему.</p>
+        <a href="{% url 'login' %}">Войти</a>
+    {% endif %}
+{% endblock %}
+

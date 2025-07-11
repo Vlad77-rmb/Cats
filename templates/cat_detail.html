@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ cat.breed.name }} - Cat Ads{% endblock %}
+
+{% block content %}
+  <h1>{{ cat.breed.name }}</h1>
+  <div class="row">
+    <div class="col-md-6">
+      <img src="{{ cat.image.url }}" alt="{{ cat.breed.name }}" class="img-fluid">
+    </div>
+    <div class="col-md-6">
+      <p><strong>Возраст:</strong> {{ cat.age }}</p>
+      <p><strong>Пол:</strong> {{ cat.get_gender_display }}</p>  <!--  cat.gender будет M или F, get_gender_display покажет Male или Female -->
+      <p><strong>Цена:</strong> ₽{{ cat.price }}</p>
+      <p><strong>Местоположение:</strong> {{ cat.location }}</p>
+      <p><strong>Описание:</strong></p>
+      <p>{{ cat.description }}</p>
+      <p><strong>Опубликовано:</strong> {{ cat.date_posted }}</p>
+      <p><strong>Продавец:</strong> {{ cat.seller.username }}</p>
+      <p><strong>Номер телефона продавца:</strong> {{ cat.seller.sellerprofile.phone_number }}</p>  <!-- Добавляем номер телефона продавца -->
+
+      {% if user.is_authenticated and user == cat.seller %}
+        <a href="{% url 'update_cat' cat.pk %}" class="btn btn-primary">Обновить</a>
+        <a href="{% url 'delete_cat' cat.pk %}" class="btn btn-danger">Удалить</a>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+

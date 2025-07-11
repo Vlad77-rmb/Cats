@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ breed.name }} - Cat Ads{% endblock %}
+
+{% block content %}
+  <h1>{{ breed.name }} Котики</h1>
+  <p>{{ breed.description }}</p>
+  <div class="row">
+    {% for cat in cats %}
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <img src="{{ cat.image.url }}" class="card-img-top" alt="{{ cat.breed.name }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ cat.breed.name }}</h5>
+            <p class="card-text">Возраст: {{ cat.age }}, Цена: ₽{{ cat.price }}</p>
+            <a href="{% url 'cat_detail' cat.pk %}" class="btn btn-primary">Узнать подробнее</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Cat - Cat Ads{% endblock %}
+
+{% block content %}
+  <h1>Удалить объявление</h1>
+  <p>Вы действительно хотите удалить это объявление?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Да, удалить</button>
+    <a href="{% url 'cat_detail' cat.pk %}" class="btn btn-secondary">Отмена</a>
+  </form>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Cat Ads{% endblock %}
+
+{% block content %}
+  <h1>Кошки для продажи</h1>
+  <div class="row">
+    {% for cat in page_obj %}
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <img src="{{ cat.image.url }}" class="card-img-top" alt="{{ cat.breed.name }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ cat.breed.name }}</h5>
+            <p class="card-text">Возраст: {{ cat.age }}, Цена: ₽{{ cat.price }}</p>
+            <a href="{% url 'cat_detail' cat.pk %}" class="btn btn-primary">Посмотреть детали</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+      {% endif %}
+
+      <li class="page-item active"><a class="page-link" href="#">Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</a></li>
+
+      {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+
+{% endblock %}

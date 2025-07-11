@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% if form.instance.pk %}Редактировать объявление{% else %}Добавить объявление{% endif %} - Cat Ads{% endblock %}
+
+{% block content %}
+  <h1>{% if form.instance.pk %}Редактировать объявление{% else %}Добавление объявления{% endif %}</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Это отобразит все поля формы, включая phone_number -->
+
+    <!-- Удалите следующую часть, чтобы избежать дублирования -->
+    {# <label for="{{ form.phone_number.id_for_label }}">Номер телефона продавца:</label> #}
+    {# {{ form.phone_number }} #}
+    {# {{ form.phone_number.errors }} #}
+
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Отмена</a>
+  </form>
+{% endblock %}
